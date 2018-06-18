@@ -37,6 +37,21 @@ const NativePayments: {
       resolve(ReactNativePayments.canMakePayments);
     });
   },
+  canMakePaymentsWithActiveCard(methodData: object) {
+    return new Promise((resolve, reject) => {
+      if (IS_ANDROID) {
+        ReactNativePayments.canMakePayments(
+          methodData,
+          (err) => reject(err),
+          (canMakePayments) => resolve(true)
+        );
+
+        return;
+      }
+
+      resolve(ReactNativePayments.canMakePaymentsWithActiveCard);
+    });
+  },
 
   createPaymentRequest(methodData, details, options = {}) {
     return new Promise((resolve, reject) => {
